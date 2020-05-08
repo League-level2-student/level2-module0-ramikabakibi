@@ -6,6 +6,7 @@
 
 package arrays;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -39,8 +40,24 @@ public class _02_FindTheHiddenButton implements ActionListener{
 		buttons=new JButton[positive];
 		//5. Make a for loop to iterate through the JButton array
 		for(int i=0; i<buttons.length; i++) {
-			//ON THIS STEPPPPP
+			buttons[i]=new JButton();
+			buttons[i].addActionListener(this);
+			panel.add(buttons[i]);
+			buttons[i].setSize(new Dimension(50,50));
 		}
+		window.add(panel);
+		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		window.setVisible(true);
+		JOptionPane.showMessageDialog(null, "Here are the rules for the game. You will type in the amount of buttons you want. \nWhen the game starts, one button will have text, on it, but that text will soon go away. Your job is to find the button again! Good Luck!");
+		hiddenButton=new Random().nextInt(positive);
+		buttons[hiddenButton].setText("ME");
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		buttons[hiddenButton].setText("");
 			//6. initialize each JButton in the array
 			//7. add the ActionListener to each JButton
 			//8. add each JButton to the panel
@@ -69,7 +86,12 @@ public class _02_FindTheHiddenButton implements ActionListener{
 		JButton buttonClicked = (JButton)e.getSource();
 		
 		//17. if the hiddenButton is clicked, tell the user that they win.
-		
+		if(e.getSource()==buttons[hiddenButton]) {
+			JOptionPane.showMessageDialog(null, "You Winnnnnnnnnn!!!!");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Nope. Try again brooooo");
+		}
 		//18. else tell them to try again
 	}
 }
